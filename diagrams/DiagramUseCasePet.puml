@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+
+actor Admin as adm
+package Usecases {
+
+    usecase "Create Pet" as UC1
+    usecase "Get pet By ID" as UC2
+    usecase "Get all pets" as UC3
+    usecase "Update pet" as UC4
+    usecase "Delete pet" as UC5
+
+}
+
+adm --> UC1
+adm --> UC2
+adm --> UC3
+adm --> UC4
+adm --> UC5
+
+@enduml

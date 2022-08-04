@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+actor Admin as adm
+
+participant Route
+participant Handler
+participant CreatePetUseCase
+participant PetRepository
+participant MongoDBRepository
+
+adm -> Route : POST(/api/pet/)
+Route -> Handler : createPet(request : ServerRequest)
+Handler -> CreatePetUseCase : createPet(pet)
+CreatePetUseCase -> PetRepository : save(pet)
+PetRepository -> MongoDBRepository : save(pet)
+
+PetRepository <- MongoDBRepository : return Mono<Pet>
+CreatePetUseCase <- PetRepository :  return Mono<Pet>
+Handler <- CreatePetUseCase :  return Mono<Pet>
+Route <- Handler : return ServerResponse
+adm <- Route : return ServerResponse
+
+
+
+
+
+
+@enduml

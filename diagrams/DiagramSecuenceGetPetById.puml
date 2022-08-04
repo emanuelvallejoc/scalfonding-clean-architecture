@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+actor Admin as adm
+
+participant Route
+participant Handler
+participant GetPetIdUseCase
+participant PetRepository
+participant MongoDBRepository
+
+adm -> Route : GET(/api/pet/{id})
+Route -> Handler : getPet(request)
+Handler -> GetPetIdUseCase : getPetById(idPet)
+GetPetIdUseCase -> PetRepository : findById(idPet)
+PetRepository -> MongoDBRepository : findById(idPet)
+
+PetRepository <- MongoDBRepository : return Mono<Pet>
+GetPetIdUseCase <- PetRepository :  return Mono<Pet>
+Handler <- GetPetIdUseCase :  return Mono<Pet>
+Route <- Handler : return ServerResponse
+adm <- Route : return ServerResponse
+
+@enduml
